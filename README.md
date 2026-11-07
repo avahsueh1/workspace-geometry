@@ -51,9 +51,9 @@ flowchart LR
   F --> G[Scale and place chosen model]
 ```
 
-This repo implements geometry measurements, simple candidate clustering, ranking and placement. **It does not yet run a vision classifier, generate embeddings, read GLB/USDZ, or perform learned semantic instance segmentation.** Connected components alone cannot distinguish touching furniture, remove arbitrary walls, or recognize object types. Do not present them as furniture detections.
+This repo implements geometry measurements, simple candidate clustering, ranking and placement. An optional local Python JPG detector is now available; see [Photo pipeline](docs/photo-pipeline.md). The TypeScript library makes no model calls. **It does not generate appearance embeddings, read GLB/USDZ, or perform learned 3D semantic instance segmentation.** Connected components alone cannot distinguish touching furniture, remove arbitrary walls, or recognize object types. Do not present them as furniture detections.
 
-An upstream model may provide a category and image embedding. Geometry remains measured independently. Appearance comparison requires matching `embeddingSpace` identifiers and vector lengths; otherwise ranking uses category and dimensions only. The example vectors are synthetic. No model provider has been chosen or evaluated.
+An upstream model may provide a category and image embedding. Geometry remains measured independently. Appearance comparison requires matching `embeddingSpace` identifiers and vector lengths; otherwise ranking uses category and dimensions only. The example vectors are synthetic. The optional local JPG detector supplies categories but no appearance embeddings; no hosted model provider is required.
 
 ## Coordinate and asset contract
 
@@ -66,6 +66,8 @@ PCA boxes include every supplied point; there is no silent outlier trimming. Occ
 `fromRoomPlanBridge` accepts a small native-app bridge object with explicit dimensions, center, category, yaw and confidence. **It is not a parser for Apple's raw serialized JSON or USDZ.** A native capture exporter must extract those fields from its SDK version. See [Apple RoomPlan](https://developer.apple.com/augmented-reality/roomplan/). Native categories outside the supported set must map to `unknown`. Use declared confidence conventions rather than pretending a heuristic number is a calibrated probability.
 
 ## Website integration
+
+The optional `scripts/photo_server.py` exposes local photo inference at `127.0.0.1:3140/analyze`. It accepts raw image bytes and returns reviewable 2D detections. The service source can be vendored into a host application; the host must authenticate users and keep any service token server-side. See the Dockerfile and [photo pipeline](docs/photo-pipeline.md). The host app integration is maintained separately; this public repository contains the algorithm and inference service, not proprietary application source or user photos.
 
 Keep this package separate from the editor. The upload layer should normalize or segment the scan, then call `analyze`. Render candidate cards from the returned suggestions; do not replace the original scan. `assetId` identifies a model in the consuming application's approved catalog, not an external URL to download. The application loads that model after acceptance.
 

@@ -5,3 +5,7 @@ dist/
 *.tgz
 coverage/
 scans/
+.venv/
+.venv-photo/
+__pycache__/
+photo-results/

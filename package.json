@@ -9,6 +9,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./photo": {
+      "types": "./dist/photo.d.ts",
+      "import": "./dist/photo.js"
     }
   },
   "files": [
