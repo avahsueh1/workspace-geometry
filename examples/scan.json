@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "unit": "cm",
+  "upAxis": "y",
+  "embeddingSpace": "synthetic-demo-v1",
+  "objects": [
+    {
+      "id": "sofa-1",
+      "box": {
+        "center": [250, 45, -180],
+        "dimensions": [210, 90, 85],
+        "yaw": 0.3
+      },
+      "label": { "category": "sofa", "confidence": 0.9, "source": "scanner" },
+      "embedding": [0.8, 0.2, 0.1]
+    },
+    {
+      "id": "unidentified-1",
+      "box": { "center": [100, 40, -80], "dimensions": [70, 80, 60], "yaw": 0 }
+    }
+  ]
+}
