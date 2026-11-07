@@ -13,6 +13,11 @@ LIMIT = 12 * 1024 * 1024
 busy = threading.Lock()
 
 class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/health':
+            return self.reply(200, {'status': 'ok'})
+        return self.reply(404, {'error': 'Not found'})
+
     def reply(self, status, data):
         body = json.dumps(data).encode()
         self.send_response(status)
